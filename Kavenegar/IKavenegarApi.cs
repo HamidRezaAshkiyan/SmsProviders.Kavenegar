@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
+using SmsProviders.Kavenegar.Models;
+using SmsProviders.Kavenegar.Models.Enums;
 
-using Kavenegar.Models;
-using Kavenegar.Models.Enums;
-
-namespace Kavenegar;
+namespace SmsProviders.Kavenegar;
 
 public interface IKavenegarApi
 {

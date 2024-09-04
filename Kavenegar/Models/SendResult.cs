@@ -1,8 +1,6 @@
-using System;
+using SmsProviders.Kavenegar.Utils;
 
-using Kavenegar.Utils;
-
-namespace Kavenegar.Models;
+namespace SmsProviders.Kavenegar.Models;
 
 public class SendResult
 {

@@ -1,6 +1,6 @@
-using Kavenegar.Models.Enums;
+using SmsProviders.Kavenegar.Models.Enums;
 
-namespace Kavenegar.Exceptions;
+namespace SmsProviders.Kavenegar.Exceptions;
 
 public class ApiException : KavenegarException
 {

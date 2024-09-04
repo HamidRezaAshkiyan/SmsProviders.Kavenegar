@@ -1,5 +1,5 @@
-using Kavenegar.Models.Enums;
-namespace Kavenegar.Models;
+using SmsProviders.Kavenegar.Models.Enums;
+namespace SmsProviders.Kavenegar.Models;
 
 public class StatusLocalMessageIdResult
 {

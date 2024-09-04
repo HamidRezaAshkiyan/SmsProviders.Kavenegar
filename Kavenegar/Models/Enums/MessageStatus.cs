@@ -1,4 +1,4 @@
-namespace Kavenegar.Models.Enums;
+namespace SmsProviders.Kavenegar.Models.Enums;
 
 public enum MessageStatus
 {

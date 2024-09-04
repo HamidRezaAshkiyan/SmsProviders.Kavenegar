@@ -1,6 +1,6 @@
-namespace Kavenegar.Exceptions;
+namespace SmsProviders.Kavenegar.Exceptions;
 
-public class KavenegarException : System.Exception
+public class KavenegarException : Exception
 {
     public KavenegarException(string message)
      : base(message)

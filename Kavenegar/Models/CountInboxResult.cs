@@ -1,4 +1,4 @@
-namespace Kavenegar.Models;
+namespace SmsProviders.Kavenegar.Models;
 
 public class CountInboxResult
 {

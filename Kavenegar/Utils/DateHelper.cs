@@ -1,6 +1,5 @@
-﻿using System;
-using System.Globalization;
-namespace Kavenegar.Utils;
+﻿using System.Globalization;
+namespace SmsProviders.Kavenegar.Utils;
 
 public class DateHelper
 {
@@ -8,7 +7,7 @@ public class DateHelper
     {
         try
         {
-            return (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(unixTimeStamp);
+            return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(unixTimeStamp);
         }
         catch (Exception ex)
         {
@@ -20,7 +19,7 @@ public class DateHelper
         try
         {
             idateTime = new DateTime(idateTime.Year, idateTime.Month, idateTime.Day, idateTime.Hour, idateTime.Minute, idateTime.Second);
-            TimeSpan unixTimeSpan = (idateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).ToLocalTime());
+            TimeSpan unixTimeSpan = idateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).ToLocalTime();
             return long.Parse(unixTimeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture));
         }
         catch (Exception ex)

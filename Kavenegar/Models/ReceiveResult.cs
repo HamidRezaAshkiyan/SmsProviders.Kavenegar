@@ -1,5 +1,4 @@
-using System;
-namespace Kavenegar.Models;
+namespace SmsProviders.Kavenegar.Models;
 
 public class ReceiveResult
 {

@@ -1,4 +1,4 @@
-namespace Kavenegar.Exceptions;
+namespace SmsProviders.Kavenegar.Exceptions;
 
 public class HttpException : KavenegarException
 {

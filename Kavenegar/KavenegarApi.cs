@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Text;
 using System.Web;
 
-using Kavenegar.Exceptions;
-using Kavenegar.Models;
-using Kavenegar.Models.Enums;
-using Kavenegar.Utils;
-
 using Newtonsoft.Json;
 
-namespace Kavenegar;
+using SmsProviders.Kavenegar.Exceptions;
+using SmsProviders.Kavenegar.Models;
+using SmsProviders.Kavenegar.Models.Enums;
+using SmsProviders.Kavenegar.Utils;
+
+namespace SmsProviders.Kavenegar;
 
 internal class ReturnResult
 {
