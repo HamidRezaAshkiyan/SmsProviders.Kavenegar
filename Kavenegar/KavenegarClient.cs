@@ -1,6 +1,6 @@
-﻿using System.Net.Http.Json;
-using System.Web;
+﻿using System.Web;
 
+using SmsProviders.Kavenegar.Extensions;
 using SmsProviders.Kavenegar.Models;
 
 namespace SmsProviders.Kavenegar;
@@ -22,54 +22,53 @@ public class KavenegarClient : IKavenegarClient
     // Send SMS
     public async Task<BaseReturnResult<List<SendResult>>> SendSmsAsync(string receptor, string message)
     {
-        string url = $"{_options.RequestUrl}" + $"/sms/send.json" +
-            $"?receptor={receptor}" +
-            $"&sender={_options.LineNumber}" +
-            $"&message={HttpUtility.UrlEncode(message)}";
+        string requestUri = Routes.GetSendRoute(_options.RequestUrl, receptor, _options.LineNumber, message);
 
-        var response = await _client.GetAsync(url);
-
-        response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadFromJsonAsync<BaseReturnResult<List<SendResult>>>();
+        return await _client.GetRequestAsync<BaseReturnResult<List<SendResult>>>(requestUri);
     }
 
     // Get Delivery Status
     public async Task<BaseReturnResult<List<StatusResult>>> GetDeliveryStatusAsync(long messageId)
     {
-        string url = $"{_options.RequestUrl}" + $"/sms/status.json" +
-            $"?messageid={messageId}";
+        string requestUri = Routes.GetDeliveryStatusRoute(_options.RequestUrl, messageId);
 
-        var response = await _client.GetAsync(url);
-
-        response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadFromJsonAsync<BaseReturnResult<List<StatusResult>>>();
+        return await _client.GetRequestAsync<BaseReturnResult<List<StatusResult>>>(requestUri);
     }
 
     // Receive Incoming Messages (Inbox)
     public async Task<BaseReturnResult<List<ReceiveResult>>?> ReceiveMessagesAsync(string lineNumber, int isRead = 0)
     {
-        string url = $"{_options.RequestUrl}" + $"/sms/receive.json" +
-            $"?linenumber={lineNumber}" +
-            $"&isread={isRead}";
+        string requestUri = Routes.GetReceiveRoute(_options.RequestUrl, _options.LineNumber, isRead);
 
-        HttpResponseMessage response = await _client.GetAsync(url);
-
-        response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadFromJsonAsync<BaseReturnResult<List<ReceiveResult>>>();
+        return await _client.GetRequestAsync<BaseReturnResult<List<ReceiveResult>>>(requestUri);
     }
 
     // Get Account Info
     public async Task<BaseReturnResult<AccountConfigResult>?> GetAccountInfoAsync()
     {
-        string url = $"{_options.RequestUrl}" + $"/account/info.json";
+        string requestUri = Routes.GetAccountInfoRoute(_options.RequestUrl);
 
-        HttpResponseMessage response = await _client.GetAsync(url);
-
-        response.EnsureSuccessStatusCode();
-
-        return await response.Content.ReadFromJsonAsync<BaseReturnResult<AccountConfigResult>>();
+        return await _client.GetRequestAsync<BaseReturnResult<AccountConfigResult>>(requestUri);
     }
+}
+
+internal static class Routes
+{
+    internal static string GetSendRoute(string baseAddress, string receptor, string lineNumber, string message)
+        => baseAddress + $"/sms/send.json" +
+        $"?receptor={receptor}" +
+        $"&sender={lineNumber}" +
+        $"&message={HttpUtility.UrlEncode(message)}";
+
+    internal static string GetDeliveryStatusRoute(string baseAddress, long messageId)
+            => baseAddress + $"/sms/status.json" +
+            $"?messageid={messageId}";
+
+    internal static string GetReceiveRoute(string baseAddress, string lineNumber, int isRead)
+        => baseAddress + $"/sms/receive.json" +
+            $"?linenumber={lineNumber}" +
+            $"&isread={isRead}";
+
+    internal static string GetAccountInfoRoute(string baseAddress)
+        => baseAddress + $"/account/info.json";
 }
