@@ -20,9 +20,9 @@ public class KavenegarClient : IKavenegarClient
     }
 
     // Send SMS
-    public async Task<BaseReturnResult<List<SendResult>>> SendSmsAsync(string receptor, string message)
+    public async Task<BaseReturnResult<List<SendResult>>> SendSmsAsync(string receptor, string lineNumber, string message)
     {
-        string requestUri = Routes.GetSendRoute(_options.RequestUrl, receptor, _options.LineNumber, message);
+        string requestUri = Routes.GetSendRoute(_options.RequestUrl, receptor, lineNumber, message);
 
         return await _client.GetRequestAsync<BaseReturnResult<List<SendResult>>>(requestUri);
     }
@@ -38,7 +38,7 @@ public class KavenegarClient : IKavenegarClient
     // Receive Incoming Messages (Inbox)
     public async Task<BaseReturnResult<List<ReceiveResult>>?> ReceiveMessagesAsync(string lineNumber, int isRead = 0)
     {
-        string requestUri = Routes.GetReceiveRoute(_options.RequestUrl, _options.LineNumber, isRead);
+        string requestUri = Routes.GetReceiveRoute(_options.RequestUrl, lineNumber, isRead);
 
         return await _client.GetRequestAsync<BaseReturnResult<List<ReceiveResult>>>(requestUri);
     }
@@ -55,20 +55,20 @@ public class KavenegarClient : IKavenegarClient
 internal static class Routes
 {
     internal static string GetSendRoute(string baseAddress, string receptor, string lineNumber, string message)
-        => baseAddress + $"/sms/send.json" +
+        => baseAddress + "/sms/send.json" +
         $"?receptor={receptor}" +
         $"&sender={lineNumber}" +
         $"&message={HttpUtility.UrlEncode(message)}";
 
     internal static string GetDeliveryStatusRoute(string baseAddress, long messageId)
-            => baseAddress + $"/sms/status.json" +
+            => baseAddress + "/sms/status.json" +
             $"?messageid={messageId}";
 
     internal static string GetReceiveRoute(string baseAddress, string lineNumber, int isRead)
-        => baseAddress + $"/sms/receive.json" +
+        => baseAddress + "/sms/receive.json" +
             $"?linenumber={lineNumber}" +
             $"&isread={isRead}";
 
     internal static string GetAccountInfoRoute(string baseAddress)
-        => baseAddress + $"/account/info.json";
+        => baseAddress + "/account/info.json";
 }
