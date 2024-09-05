@@ -10,8 +10,8 @@ public class SendResult
 
     public DateTime GregorianDate
     {
-        get { return DateHelper.UnixTimestampToDateTime(Date); }
-        set { Date = DateHelper.DateTimeToUnixTimestamp(value); }
+        get => DateHelper.UnixTimestampToDateTime(Date);
+        set => Date = DateHelper.DateTimeToUnixTimestamp(value);
     }
 
     public long Date { get; set; }

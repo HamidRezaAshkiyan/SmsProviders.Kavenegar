@@ -11,18 +11,14 @@ public record BaseReturnResult<T>(Result Return, T Entries);
 public class KavenegarClient : IKavenegarClient
 {
     private readonly HttpClient _client;
-    private readonly KavenegarClientOptions _options;
 
-    public KavenegarClient(HttpClient client, KavenegarClientOptions options)
-    {
-        _client = client;
-        _options = options;
-    }
+    public KavenegarClient(HttpClient client)
+        => _client = client;
 
     // Send SMS
-    public async Task<BaseReturnResult<List<SendResult>>> SendSmsAsync(string receptor, string lineNumber, string message)
+    public async Task<BaseReturnResult<List<SendResult>>> SendSmsAsync(string receptor, string message, string lineNumber)
     {
-        string requestUri = Routes.GetSendRoute(_options.RequestUrl, receptor, lineNumber, message);
+        string requestUri = Routes.GetSendRoute(receptor, message, lineNumber);
 
         return await _client.GetRequestAsync<BaseReturnResult<List<SendResult>>>(requestUri);
     }
@@ -30,7 +26,7 @@ public class KavenegarClient : IKavenegarClient
     // Get Delivery Status
     public async Task<BaseReturnResult<List<StatusResult>>> GetDeliveryStatusAsync(long messageId)
     {
-        string requestUri = Routes.GetDeliveryStatusRoute(_options.RequestUrl, messageId);
+        string requestUri = Routes.GetDeliveryStatusRoute(messageId);
 
         return await _client.GetRequestAsync<BaseReturnResult<List<StatusResult>>>(requestUri);
     }
@@ -38,7 +34,7 @@ public class KavenegarClient : IKavenegarClient
     // Receive Incoming Messages (Inbox)
     public async Task<BaseReturnResult<List<ReceiveResult>>?> ReceiveMessagesAsync(string lineNumber, int isRead = 0)
     {
-        string requestUri = Routes.GetReceiveRoute(_options.RequestUrl, lineNumber, isRead);
+        string requestUri = Routes.GetReceiveRoute(lineNumber, isRead);
 
         return await _client.GetRequestAsync<BaseReturnResult<List<ReceiveResult>>>(requestUri);
     }
@@ -46,7 +42,7 @@ public class KavenegarClient : IKavenegarClient
     // Get Account Info
     public async Task<BaseReturnResult<AccountConfigResult>?> GetAccountInfoAsync()
     {
-        string requestUri = Routes.GetAccountInfoRoute(_options.RequestUrl);
+        string requestUri = Routes.GetAccountInfoRoute();
 
         return await _client.GetRequestAsync<BaseReturnResult<AccountConfigResult>>(requestUri);
     }
@@ -54,21 +50,25 @@ public class KavenegarClient : IKavenegarClient
 
 internal static class Routes
 {
-    internal static string GetSendRoute(string baseAddress, string receptor, string lineNumber, string message)
-        => baseAddress + "/sms/send.json" +
+    internal static string GetSendRoute(string receptor, string message, string lineNumber)
+        => //baseAddress + 
+        "sms/send.json" +
         $"?receptor={receptor}" +
         $"&sender={lineNumber}" +
         $"&message={HttpUtility.UrlEncode(message)}";
 
-    internal static string GetDeliveryStatusRoute(string baseAddress, long messageId)
-            => baseAddress + "/sms/status.json" +
+    internal static string GetDeliveryStatusRoute(long messageId)
+            => //baseAddress +
+             "sms/status.json" +
             $"?messageid={messageId}";
 
-    internal static string GetReceiveRoute(string baseAddress, string lineNumber, int isRead)
-        => baseAddress + "/sms/receive.json" +
+    internal static string GetReceiveRoute(string lineNumber, int isRead)
+        => //baseAddress +
+            "sms/receive.json" +
             $"?linenumber={lineNumber}" +
             $"&isread={isRead}";
 
-    internal static string GetAccountInfoRoute(string baseAddress)
-        => baseAddress + "/account/info.json";
+    internal static string GetAccountInfoRoute()
+        => //baseAddress +
+           "account/info.json";
 }

@@ -9,7 +9,7 @@ public class DateHelper
         {
             return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(unixTimeStamp);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return DateTime.MaxValue;
         }
@@ -22,7 +22,7 @@ public class DateHelper
             TimeSpan unixTimeSpan = idateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).ToLocalTime();
             return long.Parse(unixTimeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return 0;
         }
