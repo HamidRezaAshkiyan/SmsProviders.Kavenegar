@@ -17,11 +17,11 @@ internal class ReturnResult
     public object entries { get; set; }
 }
 
-internal class Result
+/*internal class Result
 {
     public int status { get; set; }
     public string message { get; set; }
-}
+}*/
 
 internal class ReturnSend
 {

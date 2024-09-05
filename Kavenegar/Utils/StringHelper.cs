@@ -2,13 +2,13 @@
 
 public class StringHelper
 {
-    public static string Join(string delimeter, string[] items)
+    public static string Join(string delimiter, string[] items)
     {
         string result = items.Aggregate("", (current, obj) => current + obj + ",");
         return result[..^1];
     }
 
-    public static string Join(string delimeter, long[] items)
+    public static string Join(string delimiter, long[] items)
     {
         string result = items.Aggregate("", (current, obj) => current + obj.ToString() + ",");
         return result[..^1];

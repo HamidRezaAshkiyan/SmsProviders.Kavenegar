@@ -2,7 +2,7 @@
 
 public static partial class IServiceCollectionExtensions
 {
-    /*public static IServiceCollection AddSmsIrClient(this IServiceCollection services, IConfiguration configuration)
+    /*public static IServiceCollection AddKavenegarClient(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddHttpClient<KavenegarClient>(client =>
         {
