@@ -1,4 +1,4 @@
-namespace SmsProviders.Kavenegar.Models.Enums;
+﻿namespace SmsProviders.Kavenegar.Models.Enums;
 
 public enum MessageStatus
 {
@@ -9,6 +9,5 @@ public enum MessageStatus
     Undelivered = 11,
     Canceled = 13,
     Filtered = 14,
-    Received = 50,
     Incorrect = 100
 }

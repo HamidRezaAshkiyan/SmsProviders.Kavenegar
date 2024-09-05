@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>SmsProviders.Kavenegar</PackageId>
         <RootNamespace>SmsProviders.Kavenegar</RootNamespace>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Version>1.0.0</Version>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
     <ItemGroup>
-      <Compile Remove="IKavenegarApi.cs" />
-      <Compile Remove="KavenegarApi.cs" />
+        <Compile Remove="IKavenegarApi.cs" />
+        <Compile Remove="KavenegarApi.cs" />
     </ItemGroup>
 
     <ItemGroup>
